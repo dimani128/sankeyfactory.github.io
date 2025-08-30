@@ -1,23 +1,23 @@
-import {SankeyNode} from "./Sankey/SankeyNode";
-import {Point} from "./Geometry/Point";
-import {MouseHandler} from "./MouseHandler";
-import {GameRecipe} from "./GameData/GameRecipe";
-import {GameMachine} from "./GameData/GameMachine";
-import {Settings} from "./Settings";
-import {CanvasContextMenu} from "./ContextMenu/CanvasContextMenu";
-import {ResourcesSummary} from "./ResourcesSummary";
-import {PanZoomConfiguration} from "./PanZoomConfiguration";
-import {SvgIcons} from './DomUtils/SvgIcons';
-import {HelpModal} from './HelpWindow/HelpModal';
-import {RecipeSelectionModal} from './RecipeSelectionModal';
-import {CanvasGrid} from "./CanvasGrid";
-import {AppData} from "./DataSaves/AppData";
-import {loadSatisfactoryResource, loadSingleSatisfactoryRecipe} from "./GameData/GameData";
-import {SankeyLink} from "./Sankey/SankeyLink";
-import {SavesLoaderMenu} from "./DataSaves/SavesLoaderMenu";
-import {HtmlUtils} from "./DomUtils/HtmlUtils";
-import {SankeySlotMissing} from "./Sankey/Slots/SankeySlotMissing";
-import {SankeySlotExceeding} from "./Sankey/Slots/SankeySlotExceeding";
+import { SankeyNode } from "./Sankey/SankeyNode";
+import { Point } from "./Geometry/Point";
+import { MouseHandler } from "./MouseHandler";
+import { GameRecipe } from "./GameData/GameRecipe";
+import { GameMachine } from "./GameData/GameMachine";
+import { Settings } from "./Settings";
+import { CanvasContextMenu } from "./ContextMenu/CanvasContextMenu";
+import { ResourcesSummary } from "./ResourcesSummary";
+import { PanZoomConfiguration } from "./PanZoomConfiguration";
+import { SvgIcons } from './DomUtils/SvgIcons';
+import { HelpModal } from './HelpWindow/HelpModal';
+import { RecipeSelectionModal } from './RecipeSelectionModal';
+import { CanvasGrid } from "./CanvasGrid";
+import { AppData } from "./DataSaves/AppData";
+import { loadSatisfactoryResource, loadSingleSatisfactoryRecipe } from "./GameData/GameData";
+import { SankeyLink } from "./Sankey/SankeyLink";
+import { SavesLoaderMenu } from "./DataSaves/SavesLoaderMenu";
+import { HtmlUtils } from "./DomUtils/HtmlUtils";
+import { SankeySlotMissing } from "./Sankey/Slots/SankeySlotMissing";
+import { SankeySlotExceeding } from "./Sankey/Slots/SankeySlotExceeding";
 
 function checkIfConnecting() {
     // Helper to check if a connection is being created
@@ -127,7 +127,8 @@ async function main()
         onceNodeCreated = undefined;
     });
 
-    function openNodeCreation(nodePosition?: Point) {
+    function openNodeCreation(nodePosition?: Point)
+    {
         let pageCenter = {
             x: document.documentElement.clientWidth / 2,
             y: document.documentElement.clientHeight / 2
