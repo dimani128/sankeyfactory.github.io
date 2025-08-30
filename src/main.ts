@@ -262,7 +262,7 @@ async function main()
             (mouseHandler.mouseStatus === MouseHandler.MouseStatus.ConnectingInputSlot ||
                 mouseHandler.mouseStatus === MouseHandler.MouseStatus.ConnectingOutputSlot))
         {
-            // Creating a connection, so use the menu thats only the valid options
+            // Creating a connection, so use the menu that's only the valid options
             createSuitableNode(
                 mouseHandler.firstConnectingSlot,
                 canvasPos,
