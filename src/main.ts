@@ -54,6 +54,8 @@ async function main()
     let recipeSelectionModal = new RecipeSelectionModal();
     let nodeCreationPosition: Point;
 
+    let lastMousePos = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
+
     let registerNode = (node: SankeyNode) =>
     {
         node.nodeSvg.onmousedown = (event) =>
@@ -116,14 +118,16 @@ async function main()
         onceNodeCreated = undefined;
     });
 
-    function openNodeCreation(nodePosition?: Point)
-    {
+    function openNodeCreation(nodePosition?: Point) {
         let pageCenter = {
             x: document.documentElement.clientWidth / 2,
             y: document.documentElement.clientHeight / 2
         };
 
-        nodeCreationPosition = nodePosition ?? MouseHandler.clientToCanvasPosition(pageCenter);
+        // Prefer mouse pos over center
+        let preferredPosition = nodePosition ?? lastMousePos ?? pageCenter;
+
+        nodeCreationPosition = MouseHandler.clientToCanvasPosition(preferredPosition);
 
         recipeSelectionModal.openModal();
     }
@@ -372,6 +376,10 @@ async function main()
     window.addEventListener("mouseup", () => MouseHandler.getInstance().handleMouseUp());
     window.addEventListener("touchend", () => MouseHandler.getInstance().handleMouseUp());
     window.addEventListener("mousemove", e => MouseHandler.getInstance().handleMouseMove(e));
+    window.addEventListener("mousemove", (event) => {
+        lastMousePos.x = event.clientX;
+        lastMousePos.y = event.clientY;
+    });
     window.addEventListener("touchmove", e => MouseHandler.getInstance().handleTouchMove(e));
 
     AppData.instance.addEventListener(AppData.dataLoadedEvent, () =>
