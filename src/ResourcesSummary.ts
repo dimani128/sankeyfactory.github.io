@@ -2,7 +2,7 @@ import { SankeyNode } from "./Sankey/SankeyNode";
 import { loadSatisfactoryResource, satisfactoryIconPath } from './GameData/GameData';
 import { SvgIcons } from './DomUtils/SvgIcons';
 import { HtmlUtils } from "./DomUtils/HtmlUtils";
-import {GameMachine} from "./GameData/GameMachine";
+import { GameMachine } from "./GameData/GameMachine";
 
 export class ResourcesSummary
 {
