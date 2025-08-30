@@ -349,25 +349,26 @@ async function main()
         );
     });
 
-    window.addEventListener("keypress", (event) =>
-    {
+    function checkIfInModal() {
         let anyOverlayOpened = false; // Modal window or context menu.
 
-        document.querySelectorAll(".modal-window-container").forEach((modal) =>
-        {
-            if (!modal.classList.contains("hidden"))
-            {
+        document.querySelectorAll(".modal-window-container").forEach((modal) => {
+            if (!modal.classList.contains("hidden")) {
                 anyOverlayOpened = true;
             }
         });
 
-        document.querySelectorAll(".context-menu-container").forEach((modal) =>
-        {
-            if (!modal.classList.contains("hidden"))
-            {
+        document.querySelectorAll(".context-menu-container").forEach((modal) => {
+            if (!modal.classList.contains("hidden")) {
                 anyOverlayOpened = true;
             }
         });
+        return anyOverlayOpened;
+    }
+
+    window.addEventListener("keypress", (event) =>
+    {
+        let anyOverlayOpened = checkIfInModal();
 
         if (event.code === "KeyN" && !anyOverlayOpened)
         {
@@ -398,8 +399,10 @@ async function main()
     window.addEventListener("touchend", () => MouseHandler.getInstance().handleMouseUp());
     window.addEventListener("mousemove", e => MouseHandler.getInstance().handleMouseMove(e));
     window.addEventListener("mousemove", (event) => {
-        lastMousePos.x = event.clientX;
-        lastMousePos.y = event.clientY;
+        if (!checkIfInModal()) {
+            lastMousePos.x = event.clientX;
+            lastMousePos.y = event.clientY;
+        }
     });
     window.addEventListener("touchmove", e => MouseHandler.getInstance().handleTouchMove(e));
 
