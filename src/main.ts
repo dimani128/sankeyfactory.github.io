@@ -19,6 +19,15 @@ import {HtmlUtils} from "./DomUtils/HtmlUtils";
 import {SankeySlotMissing} from "./Sankey/Slots/SankeySlotMissing";
 import {SankeySlotExceeding} from "./Sankey/Slots/SankeySlotExceeding";
 
+function checkIfConnecting() {
+    // Helper to check if a connection is being created
+    const mouseHandler = MouseHandler.getInstance();
+
+    return mouseHandler.firstConnectingSlot !== undefined &&
+        (mouseHandler.mouseStatus === MouseHandler.MouseStatus.ConnectingInputSlot ||
+            mouseHandler.mouseStatus === MouseHandler.MouseStatus.ConnectingOutputSlot);
+}
+
 async function main()
 {
     SvgIcons.replaceAllPlaceholders();
@@ -54,7 +63,7 @@ async function main()
     let recipeSelectionModal = new RecipeSelectionModal();
     let nodeCreationPosition: Point;
 
-    let lastMousePos = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
+    let lastMousePos: Point = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
 
     let registerNode = (node: SankeyNode) =>
     {
@@ -262,9 +271,7 @@ async function main()
         const mouseHandler = MouseHandler.getInstance();
         let canvasPos = MouseHandler.clientToCanvasPosition({ x: event.clientX, y: event.clientY });
 
-        if (mouseHandler.firstConnectingSlot !== undefined &&
-            (mouseHandler.mouseStatus === MouseHandler.MouseStatus.ConnectingInputSlot ||
-                mouseHandler.mouseStatus === MouseHandler.MouseStatus.ConnectingOutputSlot))
+        if (checkIfConnecting())
         {
             // Creating a connection, so use the menu that's only the valid options
             createSuitableNode(
@@ -364,7 +371,21 @@ async function main()
 
         if (event.code === "KeyN" && !anyOverlayOpened)
         {
-            openNodeCreation();
+            const mouseHandler = MouseHandler.getInstance();
+
+            if (checkIfConnecting())
+            {
+                // Creating a connection, so use the menu that's only the valid options
+                createSuitableNode(
+                    mouseHandler.firstConnectingSlot,
+                    lastMousePos,
+                    mouseHandler.mouseStatus
+                );
+            }
+            else {
+                // Not connecting, use normal node creation thing with all options
+                openNodeCreation(lastMousePos);
+            }
         }
 
         if (event.code === "KeyL")
