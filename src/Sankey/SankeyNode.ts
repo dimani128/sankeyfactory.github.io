@@ -338,7 +338,7 @@ export class SankeyNode extends EventTarget
 
         let openConfigurator = (event: Event) =>
         {
-            configurator.openConfigurationWindow(this.machinesAmount, this.overclockRatio);
+            configurator.openConfigurationWindow(recipe.displayName, this.machinesAmount, this.overclockRatio);
             event.stopPropagation();
         };
 
